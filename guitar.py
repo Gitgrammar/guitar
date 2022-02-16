@@ -2,6 +2,8 @@ import datetime
 import urllib
 import csv
 from selenium import webdriver
+import chromedriver_binary
+driver =webdriver.Chrome()
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 
@@ -31,20 +33,22 @@ keywords_all=[
 ]
 
 def get_min_price(browser,base_url,query_params,selector):
-		dic=str.marketrans({
+    dic=str.maketrans({
 				'¥':'',
 				'￥':'',
 				',':'',
 			})
-		url=base_url.format(urllib.parse.quote(query_params))
-		try:
-				browser.get(url)
-				elm_min=browser.find_element_by_css_selector(selector)
-		except NoSuchElementException as e:
-				print(f'指定した要素が見つかりませんでした:{e.args}')
-	except TimeoutException as e:
-				print(f'読み込みがタイムアウトしました:{e.args}')
-		return(elm_min.text.translate(dic))
+    url=base_url.format(urllib.parse.quote(query_params))
+
+    try:
+    	browser.get(url)
+    	elm_min=browser.find_element_by_css_selector(selector)
+    except NoSuchElementException as e:
+    	print(f'指定した要素が見つかりませんでした:{e.args}')
+    except TimeoutException as e:
+    	print(f'読み込みがタイムアウトしました:{e.args}')
+
+    return(elm_min.text.translate(dic))
 
 browser =webdriver.Chrome('chromedriver.exe')
 browser.set_page_load_timeout(30)
