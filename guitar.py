@@ -2,8 +2,9 @@ import datetime
 import urllib
 import csv
 from selenium import webdriver
-import chromedriver_binary
-driver =webdriver.Chrome()
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(ChromeDriverManager().install())
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 
